@@ -1,3 +1,7 @@
+var React = require('react');
+var ReactDOM = window.ReactDOM = require('react-dom');
+var ConversationContainer = require('./conversationContainer.jsx')
+
 var conversationsClient;
 var activeConversation;
 var previewMedia;
@@ -59,13 +63,12 @@ function conversationStarted(conversation) {
     activeConversation = conversation;
     // Draw local video, if not already previewing
     if (!previewMedia) {
-        conversation.localMedia.attach('#local-media');
+        ReactDOM.render(<ConversationContainer conversation={conversation} />, document.getElementById('local-conversation'))
     }
 
     // When a participant joins, draw their video on screen
     conversation.on('participantConnected', function (participant) {
         log("Participant '" + participant.identity + "' connected");
-        participant.media.attach('#remote-media');
     });
 
     // When a participant disconnects, note in log
@@ -76,8 +79,7 @@ function conversationStarted(conversation) {
     // When the conversation ends, stop capturing local video
     conversation.on('disconnected', function (conversation) {
         log("Connected to Twilio. Listening for incoming Invites as '" + conversationsClient.identity + "'");
-        conversation.localMedia.stop();
-        conversation.disconnect();
+        ReactDOM.unmountComponentAtNode(document.getElementById('local-conversation'));
         activeConversation = null;
     });
 }

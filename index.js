@@ -13,9 +13,13 @@ var AccessToken = require('twilio').AccessToken;
 var ConversationsGrant = AccessToken.ConversationsGrant;
 var express = require('express');
 var randomUsername = require('./randos');
+var webpack = require('webpack');
+var webpackDevMiddleware = require('webpack-dev-middleware');
+var webpackConfig = require('./webpack.config.js');
 
 // Create Express webapp
 var app = express();
+app.use(webpackDevMiddleware(webpack(webpackConfig)));
 app.use(express.static(path.join(__dirname, 'public')));
 
 /*
