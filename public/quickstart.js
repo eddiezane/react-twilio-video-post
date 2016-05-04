@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = window.ReactDOM = require('react-dom');
-var ConversationContainer = require('./conversationContainer.jsx')
+var ConversationContainer = require('./conversationContainer.jsx');
 
 var conversationsClient;
 var activeConversation;
@@ -63,7 +63,7 @@ function conversationStarted(conversation) {
     activeConversation = conversation;
     // Draw local video, if not already previewing
     if (!previewMedia) {
-        ReactDOM.render(<ConversationContainer conversation={conversation} />, document.getElementById('local-conversation'))
+        ReactDOM.render(<ConversationContainer conversation={conversation} />, document.getElementById('local-conversation'));
     }
 
     // When a participant joins, draw their video on screen
